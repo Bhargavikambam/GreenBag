@@ -52,7 +52,6 @@ def add_to_cart(request, product_id):
     return redirect('view_cart')
 
 
-
 def update_cart_quantity(request, product_id, action):
     cart = request.session.get('cart', {})
     product_id = str(product_id)
