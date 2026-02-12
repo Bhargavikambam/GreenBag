@@ -1,0 +1,26 @@
+{% extends 'bag/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h2 class="page-title">🍎 Fruits</h2>
+
+<div class="product-card">
+    <a href="{% url 'product_detail' product.id %}">
+        <img src="{{ product.image.url }}" class="main-img">
+    </a>
+
+    <h3>{{ product.name }}</h3>
+    <p class="price">₹{{ product.price }}</p>
+
+    <!-- Heart favorite button -->
+    <span class="heart {% if user.is_authenticated and product.favorited_by.filter(user=user).exists %}filled{% endif %}" 
+          data-id="{{ product.id }}">&#10084;</span>
+
+    <a href="{% url 'product_detail' product.id %}" class="btn">Add to Cart</a>
+</div>
+
+    {% endfor %}
+</div>
+
+{% endblock %}

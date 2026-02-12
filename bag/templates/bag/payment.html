@@ -1,0 +1,14 @@
+{% extends 'bag/base.html' %}
+{% block content %}
+
+<div class="payment-box">
+    <h2>Online Payment</h2>
+    <p>Order Amount: ₹{{ order.total_amount }}</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button class="btn">Pay Now</button>
+    </form>
+</div>
+
+{% endblock %}

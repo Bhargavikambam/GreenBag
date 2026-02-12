@@ -1,0 +1,89 @@
+{% extends 'bag/base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="display:flex; gap:40px; padding:30px;">
+
+    <!-- IMAGE SECTION -->
+    <div style="position:relative; width:300px;">
+
+        <!-- ❤️ LIKE / UNLIKE (SAME LOGIC AS CATEGORY) -->
+        <div class="favorite"
+             data-product-id="{{ product.id }}"
+             style="position:absolute; top:10px; right:10px;
+                    font-size:24px; cursor:pointer;
+                    background:white; border-radius:50%;
+                    padding:6px 9px;">
+            {% if user.is_authenticated and product in user.favorites.all %}
+                ❤️
+            {% else %}
+                🤍
+            {% endif %}
+        </div>
+
+        <img src="{{ product.image.url }}"
+             alt="{{ product.name }}"
+             style="width:100%; border-radius:10px;">
+    </div>
+
+    <!-- PRODUCT INFO -->
+    <div>
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.description|default:"Fresh quality product." }}</p>
+        <h3 style="color:green;">₹{{ product.price }}</h3>
+
+        <!-- QUANTITY -->
+        <div style="display:flex; align-items:center; gap:15px; margin:15px 0;">
+            <button onclick="decQty()">−</button>
+            <span id="qty">1</span>
+            <button onclick="incQty()">+</button>
+        </div>
+
+        <!-- ADD TO CART -->
+        <a id="cartBtn"
+           href="{% url 'add_to_cart' product.id %}?qty=1"
+           style="background:green; color:white;
+                  padding:10px 25px; text-decoration:none; border-radius:6px;">
+            Add to Cart
+        </a>
+    </div>
+
+</div>
+
+<!-- JS (SAME AS CATEGORY PAGE) -->
+<script>
+    // Quantity
+    let qty = 1;
+    function incQty() {
+        qty++;
+        document.getElementById("qty").innerText = qty;
+        document.getElementById("cartBtn").href =
+            "{% url 'add_to_cart' product.id %}?qty=" + qty;
+    }
+    function decQty() {
+        if (qty > 1) {
+            qty--;
+            document.getElementById("qty").innerText = qty;
+            document.getElementById("cartBtn").href =
+                "{% url 'add_to_cart' product.id %}?qty=" + qty;
+        }
+    }
+
+    // ❤️ Like / Unlike (same as category)
+    document.querySelector('.favorite').addEventListener('click', function () {
+        const productId = this.dataset.productId;
+
+        fetch("{% url 'toggle_favorite' 0 %}".replace('0', productId), {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Accept': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            this.textContent = data.status === 'added' ? '❤️' : '🤍';
+        });
+    });
+</script>
+{% endblock %}

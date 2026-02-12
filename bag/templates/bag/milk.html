@@ -1,0 +1,16 @@
+{% extends 'bag/base.html' %}
+
+{% block content %}
+<h2 class="section-title">Milk</h2>
+
+<div class="product-grid">
+    {% for product in products %}
+    <div class="product-card">
+        <img src="{{ product.image.url }}">
+        <h3>{{ product.name }}</h3>
+        <p>₹{{ product.price }}</p>
+        <a href="/add/{{ product.id }}/" class="btn">Add to Cart</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
