@@ -30,7 +30,7 @@
     <form method="GET" action="{% url 'search' %}" class="search-form">
         <input type="text" name="q" placeholder="Search products..." value="{{ request.GET.q|default:'' }}">
         <button type="submit">Search</button>
-    </form>zzzz
+    </form>
 
      <!-- CART ICON -->
     <a href="{% url 'view_cart' %}" class="cart-icon">
