@@ -13,7 +13,7 @@
 <!-- NAVBAR -->
 <nav class="navbar">
     <div class="logo">
-        <a href="{% url 'home' %}">
+        <a href="{% url 'index' %}">
             <img src="{% static 'bag/images/logo.png' %}" alt="GreenBag Logo">
             <h2>GreenBag</h2>
         </a>
@@ -30,7 +30,7 @@
     <form method="GET" action="{% url 'search' %}" class="search-form">
         <input type="text" name="q" placeholder="Search products..." value="{{ request.GET.q|default:'' }}">
         <button type="submit">Search</button>
-    </form>
+    </form>zzzz
 
      <!-- CART ICON -->
     <a href="{% url 'view_cart' %}" class="cart-icon">

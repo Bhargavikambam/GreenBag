@@ -7,9 +7,9 @@ from django.db.models import Q
 from .models import Category, Product, Order, OrderItem, Profile, Favorite
 
 # ---------------- HOME ----------------
-def home(request):
+def index(request):
     products = Product.objects.all()
-    return render(request, 'bag/home.html', {'products': products})
+    return render(request, 'bag/index.html', {'products': products})
 
 # ---------------- CATEGORY PAGES ----------------
 def milk_page(request):
@@ -273,7 +273,7 @@ def place_order(request):
     cart = request.session.get('cart', {})
 
     if not cart:
-        return redirect('home')  # No items in cart
+        return redirect('index')  # No items in cart
 
     # Calculate total
     total = 0
