@@ -1,16 +1,66 @@
 {% extends 'bag/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'bag/css/category.css' %}">
+{% endblock %}
 
 {% block content %}
-<h2 class="section-title">Milk</h2>
+
+<h2 class="page-title">Vegetables</h2>
 
 <div class="product-grid">
-    {% for product in products %}
+    {% for product in vegetables %}
     <div class="product-card">
-        <img src="{{ product.image.url }}">
-        <h3>{{ product.name }}</h3>
-        <p>₹{{ product.price }}</p>
-        <a href="/add/{{ product.id }}/" class="btn">Add to Cart</a>
+
+        <!-- Favorite Icon -->
+        <div class="favorite" data-product-id="{{ product.id }}">
+            {% if user.is_authenticated and product in user.favorites.all %}
+                ❤️
+            {% else %}
+                🤍
+            {% endif %}
+        </div>
+
+        <!-- Product Image -->
+        <a href="{% url 'product_detail' product.id %}">
+            <img src="{{ product.image.url }}" class="main-img" alt="{{ product.name }}">
+        </a>
+
+        <!-- Product Name -->
+        <h3 class="product-name">{{ product.name }}</h3>
+
+        <!-- Product Price -->
+        <p class="price">₹{{ product.price }}</p>
+
+        <!-- Add to Cart -->
+        <a href="{% url 'add_to_cart' product.id %}" class="btn add-cart">Add to Cart</a>
+
     </div>
     {% endfor %}
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const favorites = document.querySelectorAll('.favorite');
+
+    favorites.forEach(fav => {
+        fav.addEventListener('click', function() {
+            const productId = this.dataset.productId;
+            fetch("{% url 'toggle_favorite' 0 %}".replace('0', productId), {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                this.textContent = data.status === 'added' ? '❤️' : '🤍';
+            });
+        });
+    });
+});
+</script>
+
 {% endblock %}

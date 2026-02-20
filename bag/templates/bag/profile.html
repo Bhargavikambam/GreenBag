@@ -1,30 +1,31 @@
 {% extends 'bag/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'bag/css/profile.css' %}">
+{% endblock %}
+
 {% block content %}
 
-<div class="profile-page" >
-    <h2>👤 My Profile</h2>
+<div class="profile-page">
 
-    <!-- User Details -->
-    <div class="profile-details">
-    <h3>Personal Information</h3>
-    <p><strong>Full Name:</strong>
-        {{ profile.full_name|default:"Not provided" }}
-    </p>
+    <h2 class="profile-title">👤 My Profile</h2>
 
-    <p><strong>Mobile:   </strong>
-        {{ profile.phone|default:"Not provided" }}
-    </p>
+    <!-- Personal Info -->
+    <div class="profile-details card">
+        <h3>Personal Information</h3>
 
-    <p><strong>Address:   </strong>
-        {{ profile.address|default:"Not provided" }}
-    </p>
-
-</div>
+        <p><strong>Full Name:</strong> {{ profile.full_name|default:"Not provided" }}</p>
+        <p><strong>Mobile:</strong> {{ profile.phone|default:"Not provided" }}</p>
+        <p><strong>Address:</strong> {{ profile.address|default:"Not provided" }}</p>
+    </div>
 
     <!-- Orders -->
-    <div class="orders">
+    <div class="orders card">
         <h3>My Orders</h3>
+
         {% if orders %}
+        <div class="table-wrapper">
             <table>
                 <thead>
                     <tr>
@@ -34,43 +35,50 @@
                         <th>Date</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     {% for order in orders %}
                     <tr>
                         <td>#{{ order.id }}</td>
                         <td>₹{{ order.total_amount }}</td>
-                        <td>{{ order.status }}</td>
+                        <td class="status">{{ order.status }}</td>
                         <td>{{ order.created_at|date:"d M Y H:i" }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+        </div>
         {% else %}
-            <p>You have no orders yet.</p>
+        <p>You have no orders yet.</p>
         {% endif %}
     </div>
 
     <!-- Favorites -->
-<h3>Your Favorites</h3>
-{% if favorites %}
-<div class="favorite-products">
-    {% for product in favorites %}
-    <div class="product-card">
-        
-        <img src="{{ product.image.url }}" style="height:300px">
-        
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h4 class="product-name">{{ product.name }}</h4>
+    <div class="favorites-section card">
+        <h3>Your Favorites</h3>
 
-            <button class="fav-btn" data-id="{{ product.id }}">
-                ❤️
-            </button>
+        {% if favorites %}
+        <div class="favorite-products">
+
+            {% for product in favorites %}
+            <div class="product-card">
+
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+
+                <div class="product-info">
+                    <h4>{{ product.name }}</h4>
+                    <button class="fav-btn" data-id="{{ product.id }}">❤️</button>
+                </div>
+
+            </div>
+            {% endfor %}
+
         </div>
+        {% else %}
+        <p>No favorite items yet.</p>
+        {% endif %}
     </div>
-    {% endfor %}
+
 </div>
 
-{% else %}
-<p>No favorite items yet.</p>
-{% endif %}
-{%endblock%}
+{% endblock %}

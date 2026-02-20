@@ -1,0 +1,250 @@
+/* ================= GLOBAL ================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background:#f6f6f6;
+}
+
+.content{
+    width:92%;
+    max-width:1200px;
+    margin:30px auto;
+}
+
+.page-title{
+    text-align:center;
+    margin:25px 0;
+    font-size:32px;
+    color:#198754;
+    font-weight:700;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+    background:#2e7d32;
+    padding:12px 25px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:15px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.15);
+}
+
+/* LOGO */
+
+.logo a{
+    display:flex;
+    align-items:center;
+    text-decoration:none;
+}
+
+.logo img{
+    height:60px;
+    margin-right: -35px;
+}
+
+.logo h2{
+    color:white;
+    margin-left:8px;
+    font-size:22px;
+}
+
+/* NAV LINKS */
+
+.nav-links{
+    display:flex;
+    gap:22px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    font-weight:500;
+    position:relative;
+}
+
+.nav-links a::after{
+    content:"";
+    position:absolute;
+    bottom:-5px;
+    left:0;
+    width:0%;
+    height:2px;
+    background:#c8facc;
+    transition:.3s;
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+
+/* SEARCH BAR */
+
+.search-form{
+    flex:1;
+    max-width:420px;
+    display:flex;
+    align-items:center;
+    background:white;
+    border-radius:30px;
+    padding:4px;
+    overflow:hidden;
+}
+
+.search-form input{
+    flex:1;
+    border:none;
+    outline:none;
+    padding:10px 15px;
+    font-size:14px;
+}
+
+.search-form button{
+    border:none;
+    padding:9px 20px;
+    border-radius:25px;
+    background:linear-gradient(45deg,#2e7d32,#43a047);
+    color:white;
+    cursor:pointer;
+    font-weight:600;
+}
+
+/* RIGHT SIDE */
+
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+/* CART */
+
+.cart-icon{
+    position:relative;
+    color:white;
+    font-size:22px;
+    text-decoration:none;
+    margin-right: 50px;
+}
+
+.cart-count{
+    position:absolute;
+    top:-6px;
+    right:-10px;
+    background:red;
+    color:white;
+    font-size:11px;
+    padding:3px 6px;
+    border-radius:50%;
+}
+
+/* PROFILE */
+
+.profile{
+    position:relative;
+}
+
+.profile-circle{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:white;
+    color:#2e7d32;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    cursor:pointer;
+    margin-left: 30px;
+}
+
+/* DROPDOWN */
+
+.dropdown{
+    display:none;
+    position:absolute;
+    top:48px;
+    right:0;
+    background:white;
+    min-width:160px;
+    border-radius:10px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.2);
+    overflow:hidden;
+}
+
+.dropdown a{
+    display:block;
+    padding:12px;
+    color:#2e7d32;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.dropdown a:hover{
+    background:#f1f1f1;
+}
+
+.profile:hover .dropdown{
+    display:block;
+}
+
+/* ================= TABLET ================= */
+
+@media(max-width:992px){
+
+    .navbar{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .nav-links{
+        justify-content:space-around;
+        width:100%;
+    }
+
+    .search-form{
+        width:100%;
+        max-width:100%;
+    }
+
+    .nav-right{
+        justify-content:flex-end;
+    }
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:600px){
+
+    .logo h2{
+        font-size:18px;
+    }
+
+    .nav-links{
+        flex-wrap:wrap;
+        gap:12px;
+        justify-content:center;
+    }
+
+    .search-form input{
+        padding:8px 12px;
+    }
+
+    .search-form button{
+        padding:8px 14px;
+        font-size:13px;
+    }
+
+    .page-title{
+        font-size:24px;
+    }
+
+}

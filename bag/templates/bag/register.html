@@ -1,34 +1,44 @@
 {% extends 'bag/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'bag/css/register.css' %}">
+{% endblock %}
 
 {% block content %}
+
 <div class="auth-page">
+
     <div class="auth-form">
-        <h2>Register</h2>
+
+        <h2 class="auth-title">Create Account</h2>
 
         {% if error %}
-            <p style="color:red">{{ error }}</p>
+            <p class="error-msg">{{ error }}</p>
         {% endif %}
 
-        <form method="POST">
-    {% csrf_token %}
+        <form method="POST" class="auth-form-fields">
+            {% csrf_token %}
 
-    <input type="text" name="username" placeholder="Username" required>
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="text" name="full_name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+            <input type="text" name="phone" placeholder="Mobile Number" required>
+            <input type="text" name="address" placeholder="Address">
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
 
-    <input type="text" name="full_name" placeholder="Full Name" required>
+            <button type="submit" class="auth-btn">Register</button>
 
-    <input type="email" name="email" placeholder="Email" required>
+        </form>
 
-    <input type="text" name="phone" placeholder="Mobile Number" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
-
-    <button type="submit">Register</button>
-</form>
-
-
-        <p>Already have an account?
+        <p class="auth-bottom">
+            Already have an account?
             <a href="{% url 'login' %}">Login here</a>
         </p>
+
     </div>
+
 </div>
+
 {% endblock %}

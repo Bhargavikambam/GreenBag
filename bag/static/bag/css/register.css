@@ -1,0 +1,106 @@
+/* PAGE BACKGROUND */
+.auth-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e8f5e9, #ffffff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* FORM CARD */
+.auth-form {
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    padding: 35px 30px;
+    border-radius: 18px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* TITLE */
+.auth-title {
+    margin-bottom: 20px;
+    color: #2e7d32;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+/* ERROR */
+.error-msg {
+    background: #ffebee;
+    color: #c62828;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+/* INPUTS */
+.auth-form-fields input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+/* INPUT FOCUS */
+.auth-form-fields input:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(76,175,80,0.15);
+}
+
+/* BUTTON */
+.auth-btn {
+    width: 100%;
+    padding: 14px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.auth-btn:hover {
+    background: #388E3C;
+}
+
+/* BOTTOM TEXT */
+.auth-bottom {
+    margin-top: 18px;
+    font-size: 14px;
+}
+
+.auth-bottom a {
+    color: #2e7d32;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* ---------------- 📱 MOBILE ---------------- */
+@media (max-width: 480px) {
+
+    .auth-form {
+        padding: 25px 20px;
+    }
+
+    .auth-title {
+        font-size: 22px;
+    }
+}
+
+/* ---------------- 📟 TABLET ---------------- */
+@media (min-width: 481px) and (max-width: 768px) {
+
+    .auth-form {
+        max-width: 500px;
+    }
+}

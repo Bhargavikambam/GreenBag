@@ -11,6 +11,9 @@ def index(request):
     products = Product.objects.all()
     return render(request, 'bag/index.html', {'products': products})
 
+def products(request):
+    return render(request, 'bag/products.html')
+
 # ---------------- CATEGORY PAGES ----------------
 def milk_page(request):
     category = get_object_or_404(Category, name__iexact="Milk")
@@ -91,7 +94,7 @@ def view_cart(request):
 def checkout(request):
     cart = request.session.get('cart', {})
     if not cart:
-        return redirect('home')
+        return redirect('index')
 
     products = []
     total = 0
@@ -202,7 +205,7 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user:
                 login(request, user)
-                return redirect('home')
+                return redirect('index')
             else:
                 error = "Invalid username or password."
         else:

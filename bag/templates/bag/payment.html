@@ -1,14 +1,41 @@
 {% extends 'bag/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'bag/css/payment.css' %}">
+{% endblock %}
+
 {% block content %}
 
-<div class="payment-box">
-    <h2>Online Payment</h2>
-    <p>Order Amount: ₹{{ order.total_amount }}</p>
+<div class="payment-page">
 
-    <form method="POST">
-        {% csrf_token %}
-        <button class="btn">Pay Now</button>
-    </form>
+    <div class="payment-box">
+
+        <h2>Online Payment</h2>
+
+        <p class="amount">
+            Order Amount:
+            <span>₹{{ order.total_amount }}</span>
+        </p>
+
+        <div class="payment-methods">
+            <img src="https://img.icons8.com/color/48/google-pay.png" alt="Google Pay">
+            <img src="https://img.icons8.com/color/48/paytm.png" alt="Paytm">
+            <img src="https://img.icons8.com/color/48/visa.png" alt="Visa">
+            <img src="https://img.icons8.com/color/48/mastercard-logo.png" alt="Mastercard">
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="pay-btn">
+                Pay Now
+            </button>
+        </form>
+
+        <p class="secure">🔒 100% Secure Payment</p>
+
+    </div>
+
 </div>
 
 {% endblock %}

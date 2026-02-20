@@ -3,24 +3,59 @@
 
 {% block content %}
 
-<h2 class="page-title">🍎 Fruits</h2>
+<h2 class="page-title">Fruits</h2>
 
-<div class="product-card">
-    <a href="{% url 'product_detail' product.id %}">
-        <img src="{{ product.image.url }}" class="main-img">
-    </a>
+<div class="product-grid">
+    {% for product in fruits %}
+    <div class="product-card">
 
-    <h3>{{ product.name }}</h3>
-    <p class="price">₹{{ product.price }}</p>
+        <!-- Favorite Icon -->
+        <div class="favorite" data-product-id="{{ product.id }}">
+            {% if user.is_authenticated and product in user.favorites.all %}
+                ❤️
+            {% else %}
+                🤍
+            {% endif %}
+        </div>
 
-    <!-- Heart favorite button -->
-    <span class="heart {% if user.is_authenticated and product.favorited_by.filter(user=user).exists %}filled{% endif %}" 
-          data-id="{{ product.id }}">&#10084;</span>
+        <!-- Product Image -->
+        <a href="{% url 'product_detail' product.id %}">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="main-img">
+        </a>
 
-    <a href="{% url 'product_detail' product.id %}" class="btn">Add to Cart</a>
-</div>
+        <!-- Name -->
+        <h3 class="product-name">{{ product.name }}</h3>
 
+        <!-- Price -->
+        <p class="price">₹{{ product.price }}</p>
+
+        <!-- Add to Cart -->
+        <a href="{% url 'add_to_cart' product.id %}" class="btn add-cart">Add to Cart</a>
+
+    </div>
     {% endfor %}
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const favorites = document.querySelectorAll('.favorite');
+    favorites.forEach(fav => {
+        fav.addEventListener('click', function() {
+            const productId = this.dataset.productId;
+            fetch("{% url 'toggle_favorite' 0 %}".replace('0', productId), {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                this.textContent = data.status === 'added' ? '❤️' : '🤍';
+            });
+        });
+    });
+});
+</script>
 
 {% endblock %}

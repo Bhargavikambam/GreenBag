@@ -2,95 +2,60 @@
 {% load static %}
 
 {% block content %}
-<h2 class="page-title" style="margin-bottom:20px; ">🛒 Your Cart</h2>
+<link rel="stylesheet" href="{% static 'bag/css/cart.css' %}">
+
+<h2 class="page-title">🛒 Your Cart</h2>
 
 {% if products %}
-<form style = "max-width:600px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-radius:10px; margin: 10px 0px 10px 450px" >
-<div class="cart-container" style="display:flex; flex-direction:column; gap:20px; box">
 
-    {% for product in products %}
-    <div class="cart-item" style="display:flex; align-items:center; gap:20px; padding:15px; border:1px solid #ccc; border-radius:10px;">
+<form class="cart-wrapper">
 
-        <!-- Product Image -->
-        <div class="cart-img" style="flex-shrink:0;">
-            <a href="{% url 'product_detail' product.id %}">
-                <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width:300px; height:200px; object-fit:cover; border-radius:8px; margin-right: 20px">
-            </a>
+<div class="cart-container">
+
+{% for product in products %}
+<div class="cart-item">
+
+    <div class="cart-img">
+        <a href="{% url 'product_detail' product.id %}">
+            <img src="{{ product.image.url }}">
+        </a>
+    </div>
+
+    <div class="cart-info">
+        <h3>{{ product.name }}</h3>
+        <p>Price: ₹{{ product.price }}</p>
+
+        <div class="qty-box">
+            <a href="{% url 'update_cart_quantity' product.id 'decrement' %}" class="qty-btn">-</a>
+            <span>{{ product.qty }}</span>
+            <a href="{% url 'update_cart_quantity' product.id 'increment' %}" class="qty-btn">+</a>
         </div>
 
-        <!-- Product Info -->
-        <div class="cart-info" style="flex:1;">
-            <h3 style="margin:0 0 5px 0;">{{ product.name }}</h3>
-            <p style="margin:0 0 10px 0;">Price: ₹{{ product.price }}</p>
+        <p>Subtotal: ₹{{ product.subtotal }}</p>
 
-            <!-- Quantity Controls Inline -->
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-                <a href="{% url 'update_cart_quantity' product.id 'decrement' %}" 
-                   style="padding:5px 12px; background:#1e40af; color:white; text-decoration:none; border-radius:5px; font-weight:bold;">-</a>
-
-                <span style="min-width:25px; text-align:center; font-weight:bold;">{{ product.qty }}</span>
-
-                <a href="{% url 'update_cart_quantity' product.id 'increment' %}" 
-                   style="padding:5px 12px; background:#1e40af; color:white; text-decoration:none; border-radius:5px; font-weight:bold;">+</a>
-            </div>
-
-            <p style="margin:0 0 10px 0;">Subtotal: ₹{{ product.subtotal }}</p>
-
-            <a href="{% url 'remove_from_cart' product.id %}" 
-               style="display:inline-block; padding:5px 12px; background:#dc2626; color:white; border-radius:5px; text-decoration:none;">Remove</a>
-        </div>
-
+        <a href="{% url 'remove_from_cart' product.id %}" class="remove-btn">Remove</a>
     </div>
-    {% endfor %}
 
-    <!-- Total and Place Order -->
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; padding:15px; border-top:2px solid #000;">
-        <h3>Total: ₹{{ total }}</h3>
-        <a href="{% url 'checkout' %}" 
-           style="padding:10px 20px; background:#16a34a; color:white; border-radius:5px; text-decoration:none; font-weight:bold;">Place Order</a>
-    </div>
+</div>
+{% endfor %}
+
+<div class="cart-total">
+    <h3>Total: ₹{{ total }}</h3>
+    <a href="{% url 'checkout' %}" class="checkout-btn">Place Order</a>
+</div>
+
+</div>
 </form>
 
 {% else %}
-     <div style="
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:60vh;
-">
-    <div style="
-        border:1px solid #e0e0e0;
-        padding:40px 60px;
-        border-radius:8px;
-        text-align:center;
-        box-shadow:0 4px 12px rgba(0,0,0,0.05);
-        background:#ffffff;
-    ">
-        <p style="
-            font-size:24px;
-            font-weight:500;
-            color:#2c2c2c;
-            margin-bottom:20px;
-        ">
-            Your cart is currently empty
-        </p>
 
-        <a href="{% url 'home' %}"
-           style="
-             display:inline-block;
-             padding:12px 28px;
-             font-size:14px;
-             font-weight:600;
-             text-decoration:none;
-             color:#ffffff;
-             background:#2ecc71;
-             border-radius:6px;
-           ">
-           Continue Shopping
-        </a>
+<div class="empty-cart">
+    <div class="empty-box">
+        <p>Your cart is currently empty</p>
+        <a href="{% url 'products' %}" class="shop-btn">Continue Shopping</a>
     </div>
 </div>
+
 {% endif %}
 
-</div>
 {% endblock %}

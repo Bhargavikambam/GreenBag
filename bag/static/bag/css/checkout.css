@@ -1,0 +1,112 @@
+
+/* PAGE BACKGROUND */
+body{
+    background:#f4f6f9;
+}
+
+/* MAIN BOX */
+.checkout-box{
+    max-width:500px;
+    margin:50px auto;
+    background:#ffffff;
+    padding:35px 30px;
+    border-radius:14px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* TITLE */
+.checkout-box h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:#2e7d32;
+}
+
+/* INPUT FIELDS */
+.checkout-box input,
+.checkout-box textarea{
+    width:100%;
+    padding:12px 14px;
+    margin-bottom:15px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:15px;
+    transition:0.3s;
+}
+
+.checkout-box input:focus,
+.checkout-box textarea:focus{
+    border-color:#2ecc71;
+    outline:none;
+    box-shadow:0 0 0 2px rgba(46,204,113,0.15);
+}
+
+/* TEXTAREA */
+.checkout-box textarea{
+    resize:none;
+    height:90px;
+}
+
+/* SECTION HEADINGS */
+.checkout-box h3{
+    margin:18px 0 10px;
+    font-size:18px;
+    color:#333;
+}
+
+/* PAYMENT OPTIONS */
+.payment-options{
+    background:#f9fafb;
+    padding:15px;
+    border-radius:10px;
+    border:1px solid #eee;
+}
+
+.payment-options label{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:15px;
+    cursor:pointer;
+    margin-bottom:8px;
+}
+
+.payment-options input[type="radio"]{
+    accent-color:#2ecc71;
+    transform:scale(1.2);
+}
+
+/* TOTAL */
+.checkout-box h3:last-of-type{
+    text-align:right;
+    color:#000;
+    font-size:20px;
+    margin-top:20px;
+}
+
+/* BUTTON */
+.btn{
+    width:100%;
+    padding:14px;
+    background:#2ecc71;
+    color:#fff;
+    font-size:16px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.btn:hover{
+    background:#27ae60;
+    transform:translateY(-2px);
+}
+
+/* MOBILE RESPONSIVE */
+@media(max-width:600px){
+    .checkout-box{
+        margin:20px;
+        padding:25px 20px;
+    }
+}
+

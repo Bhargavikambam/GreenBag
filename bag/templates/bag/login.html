@@ -1,19 +1,45 @@
 {% extends 'bag/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'bag/css/login.css' %}">
+{% endblock %}
 
 {% block content %}
+
 <div class="auth-page">
+
     <div class="auth-form">
-        <h2>Login</h2>
+
+        <h2>Welcome Back 👋</h2>
+
         {% if error %}
-            <p style="color:red">{{ error }}</p>
+            <div class="error-msg">{{ error }}</div>
         {% endif %}
+
         <form method="POST">
             {% csrf_token %}
-            <input type="text" name="username" placeholder="Username">
-            <input type="password" name="password" placeholder="Password">
-            <button type="submit">Login</button>
+
+            <div class="input-group">
+                <input type="text" name="username" required>
+                <label>Username</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" name="password" required>
+                <label>Password</label>
+            </div>
+
+            <button type="submit" class="auth-btn">Login</button>
         </form>
-        <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+
+        <p class="bottom-text">
+            Don't have an account?
+            <a href="{% url 'register' %}">Register</a>
+        </p>
+
     </div>
+
 </div>
+
 {% endblock %}

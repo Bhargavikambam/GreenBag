@@ -1,89 +1,134 @@
 {% extends 'bag/base.html' %}
 {% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'bag/css/product_detail.css' %}">
+{% endblock %}
+
 {% block content %}
-<div style="display:flex; gap:40px; padding:30px;">
 
-    <!-- IMAGE SECTION -->
-    <div style="position:relative; width:300px;">
+<div class="page-wrapper">
 
-        <!-- ❤️ LIKE / UNLIKE (SAME LOGIC AS CATEGORY) -->
-        <div class="favorite"
-             data-product-id="{{ product.id }}"
-             style="position:absolute; top:10px; right:10px;
-                    font-size:24px; cursor:pointer;
-                    background:white; border-radius:50%;
-                    padding:6px 9px;">
-            {% if user.is_authenticated and product in user.favorites.all %}
-                ❤️
-            {% else %}
-                🤍
-            {% endif %}
+    <div class="product-container">
+
+        <!-- 🔹 IMAGE SECTION -->
+        <div class="product-image">
+
+            <button class="favorite"
+                    aria-label="wishlist"
+                    data-product-id="{{ product.id }}">
+
+                {% if user.is_authenticated and product in user.favorites.all %}
+                    ❤️
+                {% else %}
+                    🤍
+                {% endif %}
+
+            </button>
+
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy">
+
         </div>
 
-        <img src="{{ product.image.url }}"
-             alt="{{ product.name }}"
-             style="width:100%; border-radius:10px;">
-    </div>
+        <!-- 🔹 PRODUCT INFO -->
+        <div class="product-info">
 
-    <!-- PRODUCT INFO -->
-    <div>
-        <h2>{{ product.name }}</h2>
-        <p>{{ product.description|default:"Fresh quality product." }}</p>
-        <h3 style="color:green;">₹{{ product.price }}</h3>
+            <h2 class="product-title">{{ product.name }}</h2>
 
-        <!-- QUANTITY -->
-        <div style="display:flex; align-items:center; gap:15px; margin:15px 0;">
-            <button onclick="decQty()">−</button>
-            <span id="qty">1</span>
-            <button onclick="incQty()">+</button>
+            <p class="product-desc">
+                {{ product.description|default:"Fresh & organic product." }}
+            </p>
+
+            <div class="price">₹{{ product.price }}</div>
+
+            <!-- 🔹 QUANTITY -->
+            <div class="qty-box">
+
+                <button type="button" id="decBtn">−</button>
+
+                <span id="qty">1</span>
+
+                <button type="button" id="incBtn">+</button>
+
+            </div>
+
+            <!-- 🔹 ADD TO CART -->
+            <a id="cartBtn"
+               href="{% url 'add_to_cart' product.id %}?qty=1"
+               class="cart-btn">
+
+               🛒 Add to Cart
+
+            </a>
+
         </div>
 
-        <!-- ADD TO CART -->
-        <a id="cartBtn"
-           href="{% url 'add_to_cart' product.id %}?qty=1"
-           style="background:green; color:white;
-                  padding:10px 25px; text-decoration:none; border-radius:6px;">
-            Add to Cart
-        </a>
     </div>
 
 </div>
 
-<!-- JS (SAME AS CATEGORY PAGE) -->
+<!-- ✅ JAVASCRIPT -->
 <script>
-    // Quantity
+
+document.addEventListener("DOMContentLoaded", function () {
+
     let qty = 1;
-    function incQty() {
+
+    const qtyDisplay = document.getElementById("qty");
+    const cartBtn = document.getElementById("cartBtn");
+
+    const incBtn = document.getElementById("incBtn");
+    const decBtn = document.getElementById("decBtn");
+
+    const baseCartUrl = "{% url 'add_to_cart' product.id %}?qty=";
+
+    /* 🔹 INCREASE QTY */
+    incBtn.addEventListener("click", function () {
         qty++;
-        document.getElementById("qty").innerText = qty;
-        document.getElementById("cartBtn").href =
-            "{% url 'add_to_cart' product.id %}?qty=" + qty;
-    }
-    function decQty() {
+        updateQty();
+    });
+
+    /* 🔹 DECREASE QTY */
+    decBtn.addEventListener("click", function () {
         if (qty > 1) {
             qty--;
-            document.getElementById("qty").innerText = qty;
-            document.getElementById("cartBtn").href =
-                "{% url 'add_to_cart' product.id %}?qty=" + qty;
+            updateQty();
         }
+    });
+
+    function updateQty() {
+        qtyDisplay.innerText = qty;
+        cartBtn.href = baseCartUrl + qty;
     }
 
-    // ❤️ Like / Unlike (same as category)
-    document.querySelector('.favorite').addEventListener('click', function () {
-        const productId = this.dataset.productId;
+    /* 🔹 ❤️ WISHLIST TOGGLE */
+    const fav = document.querySelector(".favorite");
 
-        fetch("{% url 'toggle_favorite' 0 %}".replace('0', productId), {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': '{{ csrf_token }}',
-                'Accept': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .then(data => {
-            this.textContent = data.status === 'added' ? '❤️' : '🤍';
+    if (fav) {
+
+        fav.addEventListener("click", function () {
+
+            const productId = this.dataset.productId;
+
+            fetch("{% url 'toggle_favorite' 0 %}".replace("0", productId), {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                this.textContent = data.status === "added" ? "❤️" : "🤍";
+            });
+
         });
-    });
+
+    }
+
+});
+
 </script>
+
 {% endblock %}

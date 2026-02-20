@@ -1,40 +1,50 @@
 {% extends 'bag/base.html' %}
-{% block title %}Search Results{% endblock %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'bag/css/search.css' %}">
+{% endblock %}
 
 {% block content %}
 
-<h2>Search results for "{{ query }}"</h2>
+<div class="search-page">
 
-{% if products %}
-<h3>Matching Products</h3>
-<div class="product-grid">
-    {% for product in products %}
-    <div class="product-card">
-        <img src="{{ product.image.url }}">
-        <h4>{{ product.name }}</h4>
-        <p>₹{{ product.price }}</p>
-        <a href="{% url 'add_to_cart' product.id %}" class="btn">Add</a>
+    <h2 class="search-title">🔍 Search results for "{{ query }}"</h2>
+
+    {% if products %}
+    <h3 class="section-heading">Matching Products</h3>
+
+    <div class="product-grid">
+        {% for product in products %}
+        <div class="product-card">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            <h4>{{ product.name }}</h4>
+            <p class="price">₹{{ product.price }}</p>
+            <a href="{% url 'add_to_cart' product.id %}" class="btn">Add to Cart</a>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
-{% endif %}
+    {% endif %}
 
-{% if similar_products %}
-<h3>Similar Products</h3>
-<div class="product-grid">
-    {% for product in similar_products %}
-    <div class="product-card">
-        <img src="{{ product.image.url }}">
-        <h4>{{ product.name }}</h4>
-        <p>₹{{ product.price }}</p>
-        <a href="{% url 'add_to_cart' product.id %}" class="btn">Add</a>
+    {% if similar_products %}
+    <h3 class="section-heading">Similar Products</h3>
+
+    <div class="product-grid">
+        {% for product in similar_products %}
+        <div class="product-card">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            <h4>{{ product.name }}</h4>
+            <p class="price">₹{{ product.price }}</p>
+            <a href="{% url 'add_to_cart' product.id %}" class="btn">Add to Cart</a>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
-{% endif %}
+    {% endif %}
 
-{% if not products and not similar_products %}
-<p>No products found.</p>
-{% endif %}
+    {% if not products and not similar_products %}
+    <p class="no-results">😔 No products found.</p>
+    {% endif %}
+
+</div>
 
 {% endblock %}

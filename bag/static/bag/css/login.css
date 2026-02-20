@@ -1,0 +1,138 @@
+/* ===== PAGE BACKGROUND ===== */
+.auth-page{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+    url("https://images.unsplash.com/photo-1556745757-8d76bdb6984b");
+
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+}
+
+/* ===== FORM CARD ===== */
+.auth-form{
+    width: 100%;
+    max-width: 400px;
+    padding: 40px 30px;
+
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(14px);
+
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+
+    text-align: center;
+    color: white;
+}
+
+/* ===== TITLE ===== */
+.auth-form h2{
+    margin-bottom: 25px;
+    font-size: 28px;
+    color: #7CFC00;
+}
+
+/* ===== INPUT GROUP ===== */
+.input-group{
+    position: relative;
+    margin-bottom: 25px;
+}
+
+/* INPUT FIELD */
+.input-group input{
+    width: 100%;
+    padding: 14px 12px;
+    border: none;
+    outline: none;
+
+    border-radius: 8px;
+    font-size: 15px;
+
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+/* LABEL */
+.input-group label{
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: #ddd;
+    font-size: 14px;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+/* FLOATING EFFECT */
+.input-group input:focus + label,
+.input-group input:valid + label{
+    top: -8px;
+    left: 10px;
+    font-size: 12px;
+    color: #7CFC00;
+}
+
+/* ===== BUTTON ===== */
+.auth-btn{
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.auth-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+}
+
+/* ===== ERROR MESSAGE ===== */
+.error-msg{
+    background: rgba(255,0,0,0.2);
+    border: 1px solid rgba(255,0,0,0.4);
+    padding: 10px;
+    margin-bottom: 18px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* ===== BOTTOM TEXT ===== */
+.bottom-text{
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.bottom-text a{
+    color: #7CFC00;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.bottom-text a:hover{
+    text-decoration: underline;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:480px){
+
+    .auth-form{
+        padding: 30px 20px;
+    }
+
+    .auth-form h2{
+        font-size: 24px;
+    }
+
+}

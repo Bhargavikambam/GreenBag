@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (
-    index, milk_page, fruits_page, vegetables_page,
+    index,products, milk_page, fruits_page, vegetables_page,
     product_detail, add_to_cart, view_cart,
     checkout, login_view, logout_view, register_view, 
     remove_from_cart, update_cart_quantity, search,
@@ -11,7 +11,7 @@ from .views import (
 
 urlpatterns = [
     path('', index, name='index'),
-
+    path('products/', products, name='products'),
     path('login/', login_view, name='login'),
     path('logout/',logout_view, name='logout'),
     path('register/', register_view, name='register'),

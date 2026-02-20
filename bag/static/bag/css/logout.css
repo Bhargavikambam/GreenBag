@@ -1,0 +1,102 @@
+/* ===== LOGOUT PAGE BACKGROUND ===== */
+.logout-page{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+    url("https://images.unsplash.com/photo-1523275335684-37898b6baf30");
+
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+}
+
+/* ===== LOGOUT CARD ===== */
+.logout-box{
+    width: 100%;
+    max-width: 420px;
+    padding: 45px 30px;
+
+    text-align: center;
+    color: white;
+
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(14px);
+
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+/* ===== ICON ===== */
+.logout-icon{
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+/* ===== TITLE ===== */
+.logout-box h2{
+    font-size: 26px;
+    margin-bottom: 10px;
+    color: #7CFC00;
+}
+
+/* ===== SUBTITLE ===== */
+.subtitle{
+    font-size: 15px;
+    color: #ddd;
+    margin-bottom: 30px;
+}
+
+/* ===== BUTTON GROUP ===== */
+.logout-actions{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* ===== COMMON BUTTON STYLE ===== */
+.btn{
+    padding: 13px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+/* LOGIN BUTTON */
+.login-btn{
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    color: white;
+}
+
+.login-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+}
+
+/* HOME BUTTON */
+.home-btn{
+    background: white;
+    color: #333;
+}
+
+.home-btn:hover{
+    background: #f1f1f1;
+    transform: translateY(-2px);
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:480px){
+
+    .logout-box{
+        padding: 35px 20px;
+    }
+
+    .logout-box h2{
+        font-size: 22px;
+    }
+
+}
